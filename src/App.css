@@ -69,6 +69,11 @@ img {
   height: auto;
 }
 
+.mt-6{
+  margin-top: 15px;
+  border-radius: 15px;
+}
+
 .logoMe {
   height: 50%;
   width: 50%;
