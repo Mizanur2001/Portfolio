@@ -19,8 +19,8 @@ export const Projects = () => {
       imgUrl: projImg4,
     },
     {
-      title: "Social Network",
-      description: "Design & Development",
+      title: "Kalom DataBase",
+      description: "Development",
       imgUrl: projImg5,
     },
     {
@@ -29,12 +29,12 @@ export const Projects = () => {
       imgUrl: projImg3,
     },
     {
-      title: "forums",
+      title: "Dashboard Controller",
       description: "Design & Development",
       imgUrl: projImg6,
     },
     {
-      title: "Bhabta Azizia High Madrasah",
+      title: "Chatting Application (BTSM)",
       description: "Design & Development",
       imgUrl: projImg1,
     },
