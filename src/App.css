@@ -140,6 +140,22 @@ nav.navbar .navbar-nav a.nav-link.navbar-link.active {
   opacity: 1;
 }
 
+.links a {
+  color: #fff !important;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  padding: 0 25px;
+  font-size: 18px;
+  opacity: 0.75;
+  transition: 0.3s ease-in-out;
+  text-decoration: none;
+}
+
+.links a:hover,
+.links a.active {
+  opacity: 1;
+}
+
 span.navbar-text {
   display: flex;
   align-items: center;
@@ -727,6 +743,22 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
   margin-top: 20px;
 }
 
+.footer .privacy-policy a {
+  font-size: 14px;
+  color: #B8B8B8;
+  letter-spacing: 0.5px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+.footer .privacy-policy a:nth-child(1) {
+  margin-right: 10px;
+}
+
+.footer .privacy-policy a:nth-child(2) {
+  margin-left: 10px;
+}
+
 @media (max-width:500px) {
   .new-email-bx button {
     padding: 18px 14px;
@@ -770,5 +802,93 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 @media (max-width:380px) {
   .navbar-text button {
     padding: 18px 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  nav.navbar {
+    background: transparent; /* Transparent by default */
+    transition: background 0.3s ease-in-out;
+  }
+
+  /* Glossy background when the navbar is expanded */
+  nav.navbar.expanded {
+    background: rgba(255, 255, 255, 0.1); /* Glossy effect */
+    backdrop-filter: blur(10px); /* Adds a blur effect */
+    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    transition: background 0.3s ease-in-out;
+  }
+}
+
+
+
+/****************Privacy*********************/
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.ParentRapper-Privacy {
+  width: 80%;
+  margin: auto;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: var(--dark-back);
+  color: #fff;
+  margin-top: 8rem;
+  margin-bottom: 5rem;
+}
+
+.ParentRapper-Privacy .heading {
+  margin-top: 50px;
+}
+
+.ParentRapper-Privacy h1,
+.ParentRapper-Privacy h2,
+.ParentRapper-Privacy h3,
+.ParentRapper-Privacy h4 {
+  margin: 30px 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.ParentRapper-Privacy .PrivacyPara {
+  margin: 20px 0;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.ParentRapper-Privacy li {
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+
+.ParentRapper-Privacy .PrivacyLink {
+  font-size: 17px;
+  color: rgb(226, 226, 226);
+}
+
+.mt-30 {
+  margin-top: 30px !important;
+}
+
+.mt-40 {
+  margin-top: 40px !important;
+}
+
+.md-30 {
+  margin-bottom: 30px !important;
+}
+
+
+.md-40 {
+  margin-bottom: 40px !important;
+}
+
+@media(max-width:500px) {
+  .ParentRapper-Privacy .PrivacyLink {
+    font-size: 13px;
+  }
+
+  .ParentRapper-Privacy {
+    width: 90%;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
   }
 }
