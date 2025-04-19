@@ -73,7 +73,7 @@ export const NavBar = () => {
                 <a href="https://www.facebook.com/jameslev2001" target="_blanl"><img src={navIcon2} alt="" /></a>
                 <a href="https://www.instagram.com/jameslev2001/" target="_blanl"><img src={navIcon3} alt="" /></a>
               </div>
-              <HashLink to='#connect'>
+              <HashLink to='/#connect'>
                 <button className="vvd"><span>Let’s Connect</span></button>
               </HashLink>
             </span>
