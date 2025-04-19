@@ -32,7 +32,6 @@ export const Skills = () => {
   return (
     <section className="skill" id="skills">
       <Helmet>
-        <title>Skills | Mizanur Rahaman Portfolio</title>
         <meta name="description" content="Explore Mizanur Rahaman's skills in frontend and backend development, server management, and brand identity. Delivering high-quality and efficient web applications." />
         <meta name="keywords" content="Mizanur Rahaman Skills, Web Development Skills, Frontend Development, Backend Development, Server Management, Brand Identity" />
         <meta property="og:title" content="Skills | Mizanur Rahaman Portfolio" />

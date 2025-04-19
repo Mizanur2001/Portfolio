@@ -53,7 +53,6 @@ export const Banner = () => {
   return (
     <section className="banner" id="home">
       <Helmet>
-        <title>Welcome to Mizanur's Portfolio</title>
         <meta name="description" content="Discover the exceptional creative work of Mizanur Rahaman, a skilled web developer, designer, and server manager. Explore innovative digital experiences crafted with passion and expertise." />
         <meta name="keywords" content="Mizanur Rahaman, Web Developer, Web Designer, Server Manager, Fullstack Developer, Portfolio Website" />
         <meta property="og:title" content="Welcome to Mizanur's Portfolio" />

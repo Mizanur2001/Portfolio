@@ -52,7 +52,6 @@ export const Contact = () => {
   return (
     <section className="contact" id="connect">
       <Helmet>
-        <title>Contact Mizanur Rahaman | Get in Touch</title>
         <meta name="description" content="Contact Mizanur Rahaman, a skilled web developer, designer, and server manager. Reach out for collaborations, inquiries, or project discussions." />
         <meta name="keywords" content="Contact Mizanur Rahaman, Web Developer Contact, Fullstack Developer Contact, Portfolio Contact Page" />
         <meta property="og:title" content="Contact Mizanur Rahaman | Get in Touch" />

@@ -49,7 +49,6 @@ export const Projects = () => {
   return (
     <section className="project" id="projects">
       <Helmet>
-        <title>Projects by Mizanur Rahaman | Portfolio</title>
         <meta name="description" content="Explore Mizanur Rahaman's portfolio projects, showcasing expertise in web development, design, and server management. Discover innovative solutions and creative designs." />
         <meta name="keywords" content="Mizanur Rahaman Projects, Web Development Projects, Fullstack Developer Portfolio, Web Design, Server Management" />
         <meta property="og:title" content="Projects by Mizanur Rahaman | Portfolio" />

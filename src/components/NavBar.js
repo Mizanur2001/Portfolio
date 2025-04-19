@@ -34,7 +34,6 @@ export const NavBar = () => {
   return (
     <>
       <Helmet>
-        <title>Mizanur Rahaman | Portfolio Website</title>
         <meta name="description" content="Explore Mizanur Rahaman's portfolio website. Discover his expertise in web development, design, and server management. Let's connect and collaborate!" />
         <meta name="keywords" content="Mizanur Rahaman, Web Developer, Fullstack Developer, Portfolio Website, Web Designer, Server Manager" />
         <meta property="og:title" content="Mizanur Rahaman | Portfolio Website" />
