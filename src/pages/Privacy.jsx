@@ -1,10 +1,26 @@
 import React from 'react'
 import { NavBar } from '../components/NavBar'
 import { HashLink } from 'react-router-hash-link'
+import { Helmet } from 'react-helmet';
 
 const Privacy = () => {
   return (
     <div>
+      <Helmet>
+        <title>Privacy Policy | Mizanur Rahaman Portfolio</title>
+        <meta name="description" content="Read the Privacy Policy of Mizanur Rahaman's portfolio website. Learn about how we collect, use, and protect your personal data while using our services." />
+        <meta name="keywords" content="Privacy Policy, Mizanur Rahaman, Data Protection, Terms and Conditions, Personal Data, Cookies Policy" />
+        <meta property="og:title" content="Privacy Policy | Mizanur Rahaman Portfolio" />
+        <meta property="og:description" content="Read the Privacy Policy of Mizanur Rahaman's portfolio website. Learn about how we collect, use, and protect your personal data while using our services." />
+        <meta property="og:image" content="https://mizanur.in/logo_me.png" />
+        <meta property="og:url" content="https://mizanur.in/privacy" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Mizanur's Portfolio" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Privacy Policy | Mizanur Rahaman Portfolio" />
+        <meta name="twitter:description" content="Read the Privacy Policy of Mizanur Rahaman's portfolio website. Learn about how we collect, use, and protect your personal data while using our services." />
+        <meta name="twitter:image" content="https://mizanur.in/logo_me.png" />
+      </Helmet>
       <NavBar />
       <div className='ParentRapper-Privacy'>
         <h1 className="heading">Terms and Conditions</h1>
@@ -25,7 +41,7 @@ const Privacy = () => {
           </li>
           <li>
             <p className="PrivacyPara"><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Agreement) refers to Mizanur Rahaman, NEAR HASSAN
-            DOCTOR NURSINGHOME, Chaltia, Berhampore, Murshidabad, West Bengal - 742165 .</p>
+              DOCTOR NURSINGHOME, Chaltia, Berhampore, Murshidabad, West Bengal - 742165 .</p>
           </li>
           <li>
             <p className="PrivacyPara"><strong>Cookies</strong> are small files that are placed on Your computer, mobile device or any other device by a website, containing the details of Your browsing history on that website among its many uses.</p>

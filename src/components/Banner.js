@@ -4,6 +4,7 @@ import headerImg from "../assets/img/header-img.svg";
 import { ArrowRightCircle } from 'react-bootstrap-icons';
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
+import { Helmet } from "react-helmet";
 
 export const Banner = () => {
   const [loopNum, setLoopNum] = useState(0);
@@ -51,6 +52,21 @@ export const Banner = () => {
 
   return (
     <section className="banner" id="home">
+      <Helmet>
+        <title>Welcome to Mizanur's Portfolio</title>
+        <meta name="description" content="Discover the exceptional creative work of Mizanur Rahaman, a skilled web developer, designer, and server manager. Explore innovative digital experiences crafted with passion and expertise." />
+        <meta name="keywords" content="Mizanur Rahaman, Web Developer, Web Designer, Server Manager, Fullstack Developer, Portfolio Website" />
+        <meta property="og:title" content="Welcome to Mizanur's Portfolio" />
+        <meta property="og:description" content="Discover the exceptional creative work of Mizanur Rahaman, a skilled web developer, designer, and server manager. Explore innovative digital experiences crafted with passion and expertise." />
+        <meta property="og:image" content="https://mizanur.in/logo_me.png" />
+        <meta property="og:url" content="https://mizanur.in/#home" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Mizanur's Portfolio" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Welcome to Mizanur's Portfolio" />
+        <meta name="twitter:description" content="Discover the exceptional creative work of Mizanur Rahaman, a skilled web developer, designer, and server manager. Explore innovative digital experiences crafted with passion and expertise." />
+        <meta name="twitter:image" content="https://mizanur.in/logo_me.png" />
+      </Helmet>
       <Container>
         <Row className="aligh-items-center">
           <Col xs={12} md={6} xl={7}>

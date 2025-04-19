@@ -6,6 +6,7 @@ import 'react-multi-carousel/lib/styles.css';
 // import arrow1 from "../assets/img/arrow1.svg";
 // import arrow2 from "../assets/img/arrow2.svg";
 import colorSharp from "../assets/img/color-sharp.png"
+import { Helmet } from "react-helmet";
 
 export const Skills = () => {
   const responsive = {
@@ -30,35 +31,50 @@ export const Skills = () => {
 
   return (
     <section className="skill" id="skills">
-        <div className="container">
-            <div className="row">
-                <div className="col-12">
-                    <div className="skill-bx wow zoomIn">
-                        <h2>Skills</h2>
-                        <p>With their proficiency in server optimization, front-end and back-end development, I am a versatile skill set that consistently delivers high-quality and efficient web applications.</p>
-                        <Carousel responsive={responsive} infinite={true} className="owl-carousel owl-theme skill-slider">
-                            <div className="item">
-                                <img src={meter1} alt="Image" />
-                                <h5>Frontend Development</h5>
-                            </div>
-                            <div className="item">
-                                <img src={meter2} alt="Image" />
-                                <h5>Brand Identity</h5>
-                            </div>
-                            <div className="item">
-                                <img src={meter3} alt="Image" />
-                                <h5>Server Management</h5>
-                            </div>
-                            <div className="item">
-                                <img src={meter1} alt="Image" />
-                                <h5>Backend Development</h5>
-                            </div>
-                        </Carousel>
-                    </div>
+      <Helmet>
+        <title>Skills | Mizanur Rahaman Portfolio</title>
+        <meta name="description" content="Explore Mizanur Rahaman's skills in frontend and backend development, server management, and brand identity. Delivering high-quality and efficient web applications." />
+        <meta name="keywords" content="Mizanur Rahaman Skills, Web Development Skills, Frontend Development, Backend Development, Server Management, Brand Identity" />
+        <meta property="og:title" content="Skills | Mizanur Rahaman Portfolio" />
+        <meta property="og:description" content="Explore Mizanur Rahaman's skills in frontend and backend development, server management, and brand identity. Delivering high-quality and efficient web applications." />
+        <meta property="og:image" content="https://mizanur.in/logo_me.png" />
+        <meta property="og:url" content="https://mizanur.in/#skills" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Mizanur's Portfolio" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Skills | Mizanur Rahaman Portfolio" />
+        <meta name="twitter:description" content="Explore Mizanur Rahaman's skills in frontend and backend development, server management, and brand identity. Delivering high-quality and efficient web applications." />
+        <meta name="twitter:image" content="https://mizanur.in/logo_me.png" />
+      </Helmet>
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <div className="skill-bx wow zoomIn">
+              <h2>Skills</h2>
+              <p>With their proficiency in server optimization, front-end and back-end development, I am a versatile skill set that consistently delivers high-quality and efficient web applications.</p>
+              <Carousel responsive={responsive} infinite={true} className="owl-carousel owl-theme skill-slider">
+                <div className="item">
+                  <img src={meter1} alt="Image" />
+                  <h5>Frontend Development</h5>
                 </div>
+                <div className="item">
+                  <img src={meter2} alt="Image" />
+                  <h5>Brand Identity</h5>
+                </div>
+                <div className="item">
+                  <img src={meter3} alt="Image" />
+                  <h5>Server Management</h5>
+                </div>
+                <div className="item">
+                  <img src={meter1} alt="Image" />
+                  <h5>Backend Development</h5>
+                </div>
+              </Carousel>
             </div>
+          </div>
         </div>
-        <img className="background-image-left" src={colorSharp} alt="Image" />
+      </div>
+      <img className="background-image-left" src={colorSharp} alt="Image" />
     </section>
   )
 }

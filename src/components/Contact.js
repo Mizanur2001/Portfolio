@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import contactImg from "../assets/img/contact-img.svg";
 import 'animate.css';
 import TrackVisibility from 'react-on-screen';
+import { Helmet } from "react-helmet";
 
 export const Contact = () => {
   const formInitialDetails = {
@@ -50,6 +51,21 @@ export const Contact = () => {
 
   return (
     <section className="contact" id="connect">
+      <Helmet>
+        <title>Contact Mizanur Rahaman | Get in Touch</title>
+        <meta name="description" content="Contact Mizanur Rahaman, a skilled web developer, designer, and server manager. Reach out for collaborations, inquiries, or project discussions." />
+        <meta name="keywords" content="Contact Mizanur Rahaman, Web Developer Contact, Fullstack Developer Contact, Portfolio Contact Page" />
+        <meta property="og:title" content="Contact Mizanur Rahaman | Get in Touch" />
+        <meta property="og:description" content="Reach out to Mizanur Rahaman for collaborations, inquiries, or project discussions. Contact a skilled web developer and designer today." />
+        <meta property="og:image" content="https://mizanur.in/logo_me.png" />
+        <meta property="og:url" content="https://mizanur.in/#connect" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Mizanur's Portfolio" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact Mizanur Rahaman | Get in Touch" />
+        <meta name="twitter:description" content="Reach out to Mizanur Rahaman for collaborations, inquiries, or project discussions. Contact a skilled web developer and designer today." />
+        <meta name="twitter:image" content="https://mizanur.in/logo_me.png" />
+      </Helmet>
       <Container>
         <Row className="align-items-center">
           <Col size={12} md={6}>
