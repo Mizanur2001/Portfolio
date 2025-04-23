@@ -807,15 +807,19 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 @media (max-width: 767px) {
   nav.navbar {
-    background: transparent; /* Transparent by default */
+    background: transparent;
+    /* Transparent by default */
     transition: background 0.3s ease-in-out;
   }
 
   /* Glossy background when the navbar is expanded */
   nav.navbar.expanded {
-    background: rgba(255, 255, 255, 0.1); /* Glossy effect */
-    backdrop-filter: blur(10px); /* Adds a blur effect */
-    -webkit-backdrop-filter: blur(10px); /* For Safari support */
+    background: rgba(255, 255, 255, 0.1);
+    /* Glossy effect */
+    backdrop-filter: blur(10px);
+    /* Adds a blur effect */
+    -webkit-backdrop-filter: blur(10px);
+    /* For Safari support */
     transition: background 0.3s ease-in-out;
   }
 }
@@ -890,5 +894,67 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
     width: 90%;
     margin-top: 5rem;
     margin-bottom: 5rem;
+  }
+}
+
+/********404 Page not found*****************/
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans');
+@keyframes glow {
+  0% {
+    text-shadow: 0 0 1rem #fefefe;
+  }
+
+  50% {
+    text-shadow: 0 0 1.85rem #ededed;
+  }
+
+  100% {
+    text-shadow: 0 0 1rem #fefefe;
+  }
+}
+
+@media (max-width: 770px) {
+  .page-not-found .background .ground {
+    height: 0vh !important;
+  }
+
+  .page-not-found .container {
+    flex-direction: column !important;
+    padding-bottom: 0vh !important;
+  }
+
+  .page-not-found .left-section {
+    width: 100% !important;
+    height: 40% !important;
+    position: absolute !important;
+    top: 0 !important;
+  }
+
+  .page-not-found .left-section .inner-content {
+    position: relative !important;
+    padding: 1rem 0 !important;
+  }
+
+  .page-not-found .heading {
+    font-size: 7em !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+  }
+
+  .page-not-found .subheading {
+    font-size: 1.3em !important;
+    line-height: 1.15 !important;
+    max-width: 100% !important;
+  }
+
+  .page-not-found .right-section {
+    width: 100% !important;
+    height: 60% !important;
+    position: absolute !important;
+    bottom: 0 !important;
+  }
+
+  .page-not-found .svgimg {
+    padding: 0 !important;
   }
 }
