@@ -6,6 +6,7 @@ import TrackVisibility from 'react-on-screen';
 import { Helmet } from "react-helmet";
 
 export const Contact = () => {
+  const BackendUrl = process.env.REACT_APP_BACKEND_URL;
   const formInitialDetails = {
     firstName: '',
     lastName: '',
@@ -26,12 +27,12 @@ export const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formDetails.email === '' || formDetails.firstName === '' || formDetails.lastName === '' || formDetails.message === '' || formDetails.phone === '') { 
+    if (formDetails.email === '' || formDetails.firstName === '' || formDetails.lastName === '' || formDetails.message === '' || formDetails.phone === '') {
       setStatus({ success: false, message: '*All fied required' });
-      return ;
+      return;
     }
     setButtonText("Sending...");
-    let response = await fetch("https://contact.mizanur.in/contact", {
+    let response = await fetch(`${BackendUrl}/api/v1/tools/send-email`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
