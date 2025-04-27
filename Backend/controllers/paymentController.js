@@ -59,7 +59,7 @@ module.exports = {
 
             Cashfree.XClientId = process.env.CLIENT_ID;
             Cashfree.XClientSecret = process.env.CLIENT_SECRET;
-            Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+            Cashfree.XEnvironment = Cashfree.Environment.PRODUCTION;
             Cashfree.PGCreateOrder("2023-08-01", request).then(response => {
                 HandleSuccess(res, response.data, "Payment Initiated successfully");
             }).catch(error => {
@@ -79,7 +79,7 @@ module.exports = {
 
             Cashfree.XClientId = process.env.CLIENT_ID;
             Cashfree.XClientSecret = process.env.CLIENT_SECRET;
-            Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+            Cashfree.XEnvironment = Cashfree.Environment.PRODUCTION;
             Cashfree.PGOrderFetchPayments("2023-08-01", orderId).then((response) => {
                 HandleSuccess(res, response.data, "Payment verified successfully");
             }).catch(error => {
