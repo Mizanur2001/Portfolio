@@ -1,23 +1,92 @@
 const {
     HandleServerError,
     HandleSuccess,
-    // HandleError
+    HandleError,
+    ValidateMobile,
+    ValidateEmail,
 } = require('./BaseController')
+const { Cashfree } = require('cashfree-pg');
+const crypto = require('crypto');
+
+
+function generateOrderId() {
+    const uniqueId = crypto.randomBytes(16).toString('hex');
+    const hash = crypto.createHash('sha256');
+    hash.update(uniqueId);
+    const orderId = hash.digest('hex');
+    return orderId.substr(0, 12);
+}
 
 
 module.exports = {
-    collectPayment: (req, res) => {
+    collectPayment: async (req, res) => {
         try {
-            HandleSuccess(res, "Payment Done Successfully", "This is a test message")
+            const { amount, customer_name, customer_phone, customer_email } = req.body
+
+            if (!amount || !customer_name || !customer_phone || !customer_email) {
+                return HandleError(res, "Please provide all required fields")
+            }
+
+            if (amount <= 0) {
+                return HandleError(res, "Amount should be greater than 0")
+            }
+
+            if (!ValidateMobile(customer_phone)) {
+                return HandleError(res, "Please provide a valid phone number")
+            }
+
+            if (!ValidateEmail(customer_email)) {
+                return HandleError(res, "Please provide a valid email address")
+            }
+
+
+            const order_id = generateOrderId()
+            const castomer_id = customer_name.replace(/\s+/g, "") + "_" + order_id;
+            let request = {
+                "order_amount": amount,
+                "order_currency": "INR",
+                "order_id": order_id,
+                "customer_details": {
+                    "customer_id": castomer_id,
+                    "customer_phone": customer_phone,
+                    "customer_name": customer_name,
+                    "customer_email": customer_email
+                },
+                "order_meta": {
+                    "return_url": `https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id=${order_id}`
+                }
+            }
+
+            Cashfree.XClientId = process.env.CLIENT_ID;
+            Cashfree.XClientSecret = process.env.CLIENT_SECRET;
+            Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+            Cashfree.PGCreateOrder("2023-08-01", request).then(response => {
+                HandleSuccess(res, response.data, "Payment Initiated successfully");
+            }).catch(error => {
+                HandleError(res, error.response.data.message);
+            })
+
         } catch (error) {
-            HandleServerError(res, error)
+            HandleServerError(req, res, error)
         }
     },
     verifyPayment: (req, res) => {
         try {
-            HandleSuccess(res, "Payment Verified Successfully", "This is a test message")
+            const { orderId } = req.body
+            if (!orderId) {
+                return HandleError(res, "Please provide order id")
+            }
+
+            Cashfree.XClientId = process.env.CLIENT_ID;
+            Cashfree.XClientSecret = process.env.CLIENT_SECRET;
+            Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+            Cashfree.PGOrderFetchPayments("2023-08-01", orderId).then((response) => {
+                HandleSuccess(res, response.data, "Payment verified successfully");
+            }).catch(error => {
+                HandleError(res, error.response.data.message);
+            })
         } catch (error) {
-            HandleServerError(res, error)
+            HandleServerError(req, res, error)
         }
     }
 
