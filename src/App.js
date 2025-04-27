@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Privacy from './pages/Privacy';
 import Pricing from './pages/Pricing';
 import PageNotFound from './pages/PageNotFound';
+import Payment from './pages/Payment';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/privacy' element={<Privacy />} />
           <Route path='/pricing' element={<Pricing />} />
+          <Route path='/pay' element={<Payment />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Router>
