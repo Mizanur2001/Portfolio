@@ -25,7 +25,7 @@ export const Footer = () => {
             <p>Made in India with ❤️</p>
             <div className="privacy-policy">
               <Link to='/privacy'>Terms and Conditions</Link>
-              <Link to='/pricing'>Pricing</Link>
+              <Link to='/pay'>Payment</Link>
             </div>
           </Col>
         </Row>
