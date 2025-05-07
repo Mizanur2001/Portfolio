@@ -3,11 +3,11 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { load } from '@cashfreepayments/cashfree-js'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const PaymentForm = () => {
     const BackendUrl = process.env.REACT_APP_BACKEND_URL
     const [formData, setFormData] = useState({ name: "", email: "", phone: "", amount: "" });
-    const [orderId, setOrderId] = useState("")
     const navigate = useNavigate();
 
 
@@ -35,10 +35,20 @@ const PaymentForm = () => {
                 customer_email: formData.email
             })
             
-            
+
+            if (res.data.code === 202) {     
+                toast.error(res.data.error)
+                return
+            }
+
+
+
             if (res.data && res.data.data.payment_session_id) {
-                setOrderId(res.data.data.order_id)
-                return res?.data?.data?.payment_session_id
+                const data = {
+                    orderId: res.data.data.order_id,
+                    paymentSessionId: res.data.data.payment_session_id,
+                }
+                return data
             }
         } catch (error) {
             console.log(error)
@@ -46,11 +56,45 @@ const PaymentForm = () => {
     }
 
 
-    const verifyPayment = async () => {
+    const verifyPayment = async (orderId) => {
         try {
-            let res = await axios.post(`${BackendUrl}/api/v1/tools/payment/verify`, { orderId })
-            if (res && res.data) {
-                navigate('/')
+            let res = await axios.post(`${BackendUrl}/api/v1/tools/payment/status`, { orderId })
+            const status = res.data?.data?.order_status
+
+            switch (status) {
+                case "PAID":
+                    toast.success("Payment Successful");
+                    setFormData({ name: "", email: "", phone: "", amount: "" });
+                    break;
+
+                case "ACTIVE":
+                    toast.warn("Payment not completed. Order is still active.");
+                    break;
+
+                case "EXPIRED":
+                    toast.error("Payment expired. Please try again.");
+                    break;
+
+                case "TERMINATED":
+                    toast.error("Payment session terminated. Please initiate a new payment.");
+                    break;
+
+                case "TERMINATION_REQUESTED":
+                    toast.info("Payment termination in process. Please wait or try again later.");
+                    break;
+
+                default:
+                    toast.error("❓ Unknown payment status. Please contact support.");
+                    break;
+            }
+
+            if (status === "PAID") {
+                setTimeout(() => {
+                    navigate("/")
+                }, 5000);
+            }
+            else {
+                setFormData({ name: "", email: "", phone: "", amount: "" });
             }
         } catch (error) {
             console.log(error)
@@ -60,19 +104,24 @@ const PaymentForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let sessionId = await getSessionId()
+        let data = await getSessionId()
+        if (!data) {
+            return
+        }
+        
         let checkoutOptions = {
-            paymentSessionId: sessionId,
+            paymentSessionId: data.paymentSessionId,
             redirectTarget: "_modal",
         }
         cashfree.checkout(checkoutOptions).then((res) => {
             console.log("payment initialized")
-            verifyPayment(orderId)
+            verifyPayment(data.orderId)
         })
     };
 
     return (
         <section className="payment-form">
+            <ToastContainer />
             <Container>
                 <Row className="justify-content-center">
                     <Col md={8} lg={6}>

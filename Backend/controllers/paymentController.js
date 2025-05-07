@@ -54,7 +54,7 @@ module.exports = {
                     "customer_email": customer_email
                 },
                 "order_meta": {
-                    "return_url": `https://www.cashfree.com/devstudio/preview/pg/web/checkout?order_id=${order_id}`
+                    "return_url": `https://mizanur.in?orderId=${order_id}`,
                 }
             }
 
@@ -98,6 +98,7 @@ module.exports = {
             }
 
             axios.get(`https://api.cashfree.com/pg/orders/${orderId}`,{
+            // axios.get(`https://sandbox.cashfree.com/pg/orders/${orderId}`,{
                 headers: {
                     'x-client-id': process.env.CLIENT_ID,
                     'x-client-secret': process.env.CLIENT_SECRET,
