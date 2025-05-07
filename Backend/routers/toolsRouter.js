@@ -7,5 +7,6 @@ const Payment = controller.Payment
 router.post('/send-email', SendEmail.sendEmail)
 router.post('/payment/collect', Payment.collectPayment)
 router.post('/payment/verify', Payment.verifyPayment)
+router.post('/payment/status', Payment.getPaymentStatus)
 
 module.exports = router;

@@ -7,6 +7,7 @@ const {
 } = require('./BaseController')
 const { Cashfree } = require('cashfree-pg');
 const crypto = require('crypto');
+const axios = require('axios');
 
 
 function generateOrderId() {
@@ -82,6 +83,28 @@ module.exports = {
             Cashfree.XEnvironment = Cashfree.Environment.PRODUCTION;
             Cashfree.PGOrderFetchPayments("2023-08-01", orderId).then((response) => {
                 HandleSuccess(res, response.data, "Payment verified successfully");
+            }).catch(error => {
+                HandleError(res, error.response.data.message);
+            })
+        } catch (error) {
+            HandleServerError(req, res, error)
+        }
+    },
+    getPaymentStatus: (req, res) => {
+        try {
+            const { orderId } = req.body
+            if (!orderId) {
+                return HandleError(res, "Please provide order id")
+            }
+
+            axios.get(`https://api.cashfree.com/pg/orders/${orderId}`,{
+                headers: {
+                    'x-client-id': process.env.CLIENT_ID,
+                    'x-client-secret': process.env.CLIENT_SECRET,
+                    'x-api-version': '2023-08-01',
+                }
+            }).then((response) => {
+                HandleSuccess(res, response.data, "Payment status fetched successfully");
             }).catch(error => {
                 HandleError(res, error.response.data.message);
             })
