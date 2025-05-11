@@ -6,6 +6,7 @@ import Privacy from './pages/Privacy';
 import Pricing from './pages/Pricing';
 import PageNotFound from './pages/PageNotFound';
 import Payment from './pages/Payment';
+import Resume from './pages/Resume';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/privacy' element={<Privacy />} />
           <Route path='/pricing' element={<Pricing />} />
           <Route path='/pay' element={<Payment />} />
+          <Route path='/cv' element={<Resume />} />
           <Route path='*' element={<PageNotFound />} />
         </Routes>
       </Router>
