@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import { load } from '@cashfreepayments/cashfree-js'
@@ -9,6 +9,32 @@ const PaymentForm = () => {
     const BackendUrl = process.env.REACT_APP_BACKEND_URL
     const [formData, setFormData] = useState({ name: "", email: "", phone: "", amount: "" });
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get("name") || "";
+        const email = params.get("email") || "";
+        const phone = params.get("phone") || "";
+        const amount = params.get("amount") || "";
+
+
+        if (name && email && phone && amount) {
+            setFormData({ name, email, phone, amount });
+        }
+    }, []);
+
+    // Automatically submit the form if all fields are filled
+    useEffect(() => {
+        if (
+            formData.name &&
+            formData.email &&
+            formData.phone &&
+            formData.amount
+        ) {
+            handleSubmit({ preventDefault: () => { } });
+        }
+        // eslint-disable-next-line
+    }, [formData]);
 
 
     let cashfree;
@@ -34,9 +60,9 @@ const PaymentForm = () => {
                 customer_phone: formData.phone,
                 customer_email: formData.email
             })
-            
 
-            if (res.data.code === 202) {     
+
+            if (res.data.code === 202) {
                 toast.error(res.data.error)
                 return
             }
@@ -108,7 +134,7 @@ const PaymentForm = () => {
         if (!data) {
             return
         }
-        
+
         let checkoutOptions = {
             paymentSessionId: data.paymentSessionId,
             redirectTarget: "_modal",
