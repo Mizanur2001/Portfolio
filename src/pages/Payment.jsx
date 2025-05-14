@@ -28,7 +28,7 @@ const PaymentForm = () => {
     // Automatically submit the form if all fields are filled
     useEffect(() => {
         if (
-            autoSubmit && 
+            autoSubmit &&
             formData.name &&
             formData.email &&
             formData.phone &&
@@ -87,9 +87,9 @@ const PaymentForm = () => {
     }
 
 
-    const verifyPayment = async (orderId) => {
+    const verifyPayment = async (orderId, customer_name, customer_email, customer_phone) => {
         try {
-            let res = await axios.post(`${BackendUrl}/api/v1/tools/payment/status`, { orderId })
+            let res = await axios.post(`${BackendUrl}/api/v1/tools/payment/status`, { orderId, customer_name, customer_email, customer_phone })
             const status = res.data?.data?.order_status
 
             switch (status) {
@@ -150,7 +150,7 @@ const PaymentForm = () => {
         }
         cashfree.checkout(checkoutOptions).then((res) => {
             console.log("payment initialized")
-            verifyPayment(data.orderId)
+            verifyPayment(data.orderId, formData.name, formData.email, formData.phone)
         })
     };
 

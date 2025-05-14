@@ -118,12 +118,10 @@ module.exports = {
     },
     getPaymentStatus: (req, res) => {
         try {
-            const { orderId } = req.body
+            const { orderId, customer_name, customer_email, customer_phone } = req.body
             if (!orderId) {
                 return HandleError(res, "Please provide order id")
             }
-
-            const feedMoreUrl = process.env.feedMoreUrl
 
             // axios.get(`https://api.cashfree.com/pg/orders/${orderId}`,{
             axios.get(`https://sandbox.cashfree.com/pg/orders/${orderId}`, {
@@ -134,18 +132,22 @@ module.exports = {
                 }
             }).then((response) => {
                 // Verify the payment from FeedMoreEnd
-                axios.post(`${feedMoreUrl}/api/v1/tools/payment/verify`,
-                    {
-                        order_id: orderId,
-                        status: "Payment_Done",
-                        data: response.data
+                if (customer_email === "rakib100295@gmail.com" &&
+                    customer_phone === "7872727290" &&
+                    customer_name === "feedMore") {
+                    const feedMoreUrl = process.env.feedMoreUrl
+                    axios.post(`${feedMoreUrl}/api/v1/tools/payment/verify`,
+                        {
+                            order_id: orderId,
+                            status: "Payment_Done",
+                            data: response.data
 
-                    }).then((response) => {
-                        // console.log(response.data);
-                    }).catch(error => {
-                        console.log(error);
-                    });
-
+                        }).then((response) => {
+                            // console.log(response.data);
+                        }).catch(error => {
+                            console.log(error);
+                        });
+                }
                 HandleSuccess(res, response.data, "Payment status fetched successfully");
             }).catch(error => {
                 HandleError(res, error.response.data.message);
