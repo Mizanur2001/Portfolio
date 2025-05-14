@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 const PaymentForm = () => {
     const BackendUrl = process.env.REACT_APP_BACKEND_URL
     const [formData, setFormData] = useState({ name: "", email: "", phone: "", amount: "" });
+    const [autoSubmit, setAutoSubmit] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -20,28 +21,32 @@ const PaymentForm = () => {
 
         if (name && email && phone && amount) {
             setFormData({ name, email, phone, amount });
+            setAutoSubmit(true);
         }
     }, []);
 
     // Automatically submit the form if all fields are filled
     useEffect(() => {
         if (
+            autoSubmit && 
             formData.name &&
             formData.email &&
             formData.phone &&
             formData.amount
         ) {
             handleSubmit({ preventDefault: () => { } });
+            setAutoSubmit(false);
         }
         // eslint-disable-next-line
-    }, [formData]);
+    }, [formData, autoSubmit]);
 
 
     let cashfree;
     let insitialzeSDK = async function () {
 
         cashfree = await load({
-            mode: "production",
+            // mode: "production",
+            mode: "sandbox",
         })
     }
     insitialzeSDK()
@@ -116,7 +121,11 @@ const PaymentForm = () => {
 
             if (status === "PAID") {
                 setTimeout(() => {
-                    navigate("/")
+                    if (formData.email === "rakib100295@gmail.com" && formData.phone === "7872727290" && formData.name === "feedMore") {
+                        window.location.href = "https://feedmore.in/admin/orders";
+                    } else {
+                        navigate("/")
+                    }
                 }, 5000);
             }
             else {
