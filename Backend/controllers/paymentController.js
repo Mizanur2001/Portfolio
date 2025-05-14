@@ -10,6 +10,7 @@ const crypto = require('crypto');
 const axios = require('axios');
 
 
+
 function generateOrderId() {
     const uniqueId = crypto.randomBytes(16).toString('hex');
     const hash = crypto.createHash('sha256');
@@ -43,18 +44,26 @@ module.exports = {
 
             const order_id = generateOrderId()
             const customer_id = customer_name.replace(/\s+/g, "") + "_" + order_id;
+            const feedMoreUrl = process.env.feedMoreUrl
+            let redirectUrl = "https://mizanur.in";
 
             // Check if the customer is FeedMore
-            let redirectUrl = "https://mizanur.in";
-            if (customer_email === "rakib100295@gmail.com" && customer_phone === "7872727290" && customer_name === "feedMore") {
-                redirectUrl = "https://feedmore.in/admin/orders";
-                axios.post('https://feedmore.in/api/v1/tools/payment/verify', { order_id: order_id, status: "Payment_Initiate" }).then((response) => {
-                    if (response?.data?.code !== 200) {
-                        return HandleError(res, "FeedMore Unable to verify payment connect With System Admin")
-                    }
-                }).catch(error => {
-                    return HandleError(res, error);
-                });
+            if (customer_email === "rakib100295@gmail.com" &&
+                customer_phone === "7872727290" &&
+                customer_name === "feedMore") {
+                redirectUrl = `${feedMoreUrl}/admin/orders`;
+                axios.post(`${feedMoreUrl}/api/v1/tools/payment/initiate`,
+                    {
+                        order_id: order_id,
+                        status: "Payment_Initiate"
+
+                    }).then((response) => {
+                        if (response?.data?.code !== 200) {
+                            return HandleError(res, "FeedMore Unable to verify payment connect With System Admin")
+                        }
+                    }).catch(error => {
+                        return HandleError(res, error);
+                    });
             }
 
             // Initiate payment
@@ -96,8 +105,8 @@ module.exports = {
 
             Cashfree.XClientId = process.env.CLIENT_ID;
             Cashfree.XClientSecret = process.env.CLIENT_SECRET;
-            // Cashfree.XEnvironment = Cashfree.Environment.PRODUCTION;
-            Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
+            Cashfree.XEnvironment = Cashfree.Environment.PRODUCTION;
+            // Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
             Cashfree.PGOrderFetchPayments("2023-08-01", orderId).then((response) => {
                 HandleSuccess(res, response.data, "Payment verified successfully");
             }).catch(error => {
@@ -114,6 +123,8 @@ module.exports = {
                 return HandleError(res, "Please provide order id")
             }
 
+            const feedMoreUrl = process.env.feedMoreUrl
+
             // axios.get(`https://api.cashfree.com/pg/orders/${orderId}`,{
             axios.get(`https://sandbox.cashfree.com/pg/orders/${orderId}`, {
                 headers: {
@@ -123,10 +134,17 @@ module.exports = {
                 }
             }).then((response) => {
                 // Verify the payment from FeedMoreEnd
-                axios.post('https://feedmore.in/api/v1/tools/payment/verify', { order_id: orderId, status: "Payment_Done", data: response.data }).then((response) => {
-                }).catch(error => {
-                    console.log(error); 
-                });
+                axios.post(`${feedMoreUrl}/api/v1/tools/payment/verify`,
+                    {
+                        order_id: orderId,
+                        status: "Payment_Done",
+                        data: response.data
+
+                    }).then((response) => {
+                        // console.log(response.data);
+                    }).catch(error => {
+                        console.log(error);
+                    });
 
                 HandleSuccess(res, response.data, "Payment status fetched successfully");
             }).catch(error => {
