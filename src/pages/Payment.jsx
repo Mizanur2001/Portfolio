@@ -4,6 +4,7 @@ import axios from "axios";
 import { load } from '@cashfreepayments/cashfree-js'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import { Helmet } from "react-helmet";
 
 const PaymentForm = () => {
     const BackendUrl = process.env.REACT_APP_BACKEND_URL
@@ -160,6 +161,21 @@ const PaymentForm = () => {
 
     return (
         <section className="payment-form">
+            <Helmet>
+                <title>Payment | Mizanur Rahaman Portfolio</title>
+                <meta name="description" content="Make secure payments on Mizanur Rahaman's portfolio website. Fast, easy, and protected payment process for your convenience." />
+                <meta name="keywords" content="Payment, Mizanur Rahaman, Secure Payment, Portfolio, Online Payment, Payment Form" />
+                <meta property="og:title" content="Payment | Mizanur Rahaman Portfolio" />
+                <meta property="og:description" content="Make secure payments on Mizanur Rahaman's portfolio website. Fast, easy, and protected payment process for your convenience." />
+                <meta property="og:image" content="https://mizanur.in/logo_me.png" />
+                <meta property="og:url" content="https://mizanur.in/payment" />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Mizanur's Portfolio" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Payment | Mizanur Rahaman Portfolio" />
+                <meta name="twitter:description" content="Make secure payments on Mizanur Rahaman's portfolio website. Fast, easy, and protected payment process for your convenience." />
+                <meta name="twitter:image" content="https://mizanur.in/logo_me.png" />
+            </Helmet>
             <ToastContainer />
             <Container>
                 <Row className="justify-content-center">
