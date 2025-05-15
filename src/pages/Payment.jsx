@@ -48,8 +48,8 @@ const PaymentForm = () => {
     let insitialzeSDK = async function () {
 
         cashfree = await load({
-            // mode: "production",
-            mode: "sandbox",
+            mode: "production",
+            // mode: "sandbox",
         })
     }
     insitialzeSDK()
