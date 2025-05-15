@@ -23,7 +23,7 @@ function generateOrderId() {
 module.exports = {
     collectPayment: async (req, res) => {
         try {
-            const { amount, customer_name, customer_phone, customer_email } = req.body
+            const { amount, customer_name, customer_phone, customer_email, orderId } = req.body
 
             if (!amount || !customer_name || !customer_phone || !customer_email) {
                 return HandleError(res, "Please provide all required fields")
@@ -41,9 +41,11 @@ module.exports = {
                 return HandleError(res, "Please provide a valid email address")
             }
 
+            let order_id = orderId;
+            if (orderId === null) order_id = generateOrderId();
 
-            const order_id = generateOrderId()
-            const customer_id = customer_name.replace(/\s+/g, "") + "_" + order_id;
+
+            const customer_id = customer_name.replace(/\s+/g, "") + "_" + customer_phone.replace(/\D/g, "");
             const feedMoreUrl = process.env.feedMoreUrl
             let redirectUrl = "https://mizanur.in";
 

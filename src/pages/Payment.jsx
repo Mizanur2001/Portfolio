@@ -9,6 +9,7 @@ const PaymentForm = () => {
     const BackendUrl = process.env.REACT_APP_BACKEND_URL
     const [formData, setFormData] = useState({ name: "", email: "", phone: "", amount: "" });
     const [autoSubmit, setAutoSubmit] = useState(false);
+    const [order_id, setOrderId] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -17,10 +18,12 @@ const PaymentForm = () => {
         const email = params.get("email") || "";
         const phone = params.get("phone") || "";
         const amount = params.get("amount") || "";
+        const order_id = params.get("order_id") || null;
 
 
         if (name && email && phone && amount) {
             setFormData({ name, email, phone, amount });
+            setOrderId(order_id);
             setAutoSubmit(true);
         }
     }, []);
@@ -57,13 +60,14 @@ const PaymentForm = () => {
     };
 
 
-    const getSessionId = async () => {
+    const getSessionId = async (order_id) => {
         try {
             let res = await axios.post(`${BackendUrl}/api/v1/tools/payment/collect`, {
                 amount: formData.amount,
                 customer_name: formData.name,
                 customer_phone: formData.phone,
-                customer_email: formData.email
+                customer_email: formData.email,
+                orderId: order_id,
             })
 
 
@@ -139,7 +143,7 @@ const PaymentForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let data = await getSessionId()
+        let data = await getSessionId(order_id)
         if (!data) {
             return
         }
