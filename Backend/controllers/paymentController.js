@@ -54,18 +54,18 @@ module.exports = {
                 customer_phone === "7872727290" &&
                 customer_name === "feedMore") {
                 redirectUrl = `${feedMoreUrl}/admin/orders`;
-                axios.post(`${feedMoreUrl}/api/v1/tools/payment/initiate`,
-                    {
+                try {
+                    const response = await axios.post(`${feedMoreUrl}/api/v1/tools/payment/initiate`, {
                         order_id: order_id,
-                        status: "Payment_Initiate"
-
-                    }).then((response) => {
-                        if (response?.data?.code !== 200) {
-                            return HandleError(res, "FeedMore Unable to verify payment connect With System Admin")
-                        }
-                    }).catch(error => {
-                        return HandleError(res, error);
+                        status: "INITIATE"
                     });
+                    if (response?.data?.code !== 200) {
+                        return HandleError(res, response?.data?.message);
+                    }
+                } catch (error) {
+                    const errorData = error?.response?.data || { message: error.message || "Unknown error" };
+                    return HandleError(res, errorData);
+                }
             }
 
             // Initiate payment
@@ -141,8 +141,7 @@ module.exports = {
                     axios.post(`${feedMoreUrl}/api/v1/tools/payment/verify`,
                         {
                             order_id: orderId,
-                            status: "Payment_Done",
-                            data: response.data
+                            status: "Payment_Status",
 
                         }).then((response) => {
                             // console.log(response.data);
