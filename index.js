@@ -4,11 +4,11 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/*', function (req, res) {
+// Always serve index.html for any route not matching a static file
+app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.get('/*')
 app.listen(2000, () => {
     console.log("listen on port 2000")
 });

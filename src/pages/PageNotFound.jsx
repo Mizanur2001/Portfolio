@@ -1,8 +1,14 @@
 import React from 'react'
+import { Helmet } from "react-helmet";
 
 const PageNotFound = () => {
     return (
         <div className='page-not-found'>
+            <Helmet>
+                <title>404 Not Found | Mizanur Rahaman</title>
+                <meta name="description" content="The page you are looking for does not exist." />
+                <link rel="canonical" href="https://mizanur.in/404" />
+            </Helmet>
             <div className="background" style={{
                 position: 'absolute',
                 top: 0,

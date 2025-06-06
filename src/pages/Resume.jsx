@@ -8,6 +8,7 @@ const Resume = () => {
             <Helmet>
                 <title>Resume | Mizanur Rahaman</title>
                 <meta name="description" content="View the resume of Mizanur Rahaman." />
+                <link rel="canonical" href="https://mizanur.in/cv" />
             </Helmet>
             <iframe
                 src={ResumePdf}

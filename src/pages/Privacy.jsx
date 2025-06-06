@@ -8,6 +8,7 @@ const Privacy = () => {
     <div>
       <Helmet>
         <title>Privacy Policy | Mizanur Rahaman Portfolio</title>
+        <link rel="canonical" href="https://mizanur.in/privacy" />
         <meta name="description" content="Read the Privacy Policy of Mizanur Rahaman's portfolio website. Learn about how we collect, use, and protect your personal data while using our services." />
         <meta name="keywords" content="Privacy Policy, Mizanur Rahaman, Data Protection, Terms and Conditions, Personal Data, Cookies Policy" />
         <meta property="og:title" content="Privacy Policy | Mizanur Rahaman Portfolio" />

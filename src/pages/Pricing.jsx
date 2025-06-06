@@ -1,9 +1,15 @@
 import React from 'react'
 import { NavBar } from '../components/NavBar'
+import { Helmet } from "react-helmet";
 
 const Pricing = () => {
     return (
         <div>
+            <Helmet>
+                <title>Pricing | Mizanur Rahaman</title>
+                <meta name="description" content="View the pricing plans offered by Mizanur Rahaman." />
+                <link rel="canonical" href="https://mizanur.in/pricing" />
+            </Helmet>
             <NavBar />
             <div className='ParentRapper-Privacy'>
                 <div style={{ height: '55vh' }}>

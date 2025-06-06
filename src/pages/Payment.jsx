@@ -163,6 +163,7 @@ const PaymentForm = () => {
         <section className="payment-form">
             <Helmet>
                 <title>Payment | Mizanur Rahaman Portfolio</title>
+                <link rel="canonical" href="https://mizanur.in/pay" />
                 <meta name="description" content="Make secure payments on Mizanur Rahaman's portfolio website. Fast, easy, and protected payment process for your convenience." />
                 <meta name="keywords" content="Payment, Mizanur Rahaman, Secure Payment, Portfolio, Online Payment, Payment Form" />
                 <meta property="og:title" content="Payment | Mizanur Rahaman Portfolio" />
