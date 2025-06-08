@@ -4,9 +4,16 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-// Always serve index.html for any route not matching a static file
-app.get('*', function (req, res) {
+// Serve index.html for valid frontend routes
+const validRoutes = ['/', '/privacy', '/pricing', '/pay', '/cv'];
+
+app.get(validRoutes, function (req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+// For all other routes, serve index.html with 404 status
+app.get('*', function (req, res) {
+    res.status(404).sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.listen(2000, () => {
