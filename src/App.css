@@ -962,12 +962,24 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 
 /****************Payment***************/
 /* Payment Form Styling */
+
+.payment-container {
+  margin-top: 6rem;
+}
+
+@media (max-width: 576px) {
+  .payment-container {
+    margin-top: 1rem;
+  }
+}
+
+
 .payment-form {
   padding: 50px 0;
   background: linear-gradient(rgb(12, 14, 16), rgb(68, 97, 130));
   height: 100vh;
   display: flex;
-  justify-content: center;  
+  justify-content: center;
   align-items: center;
 }
 

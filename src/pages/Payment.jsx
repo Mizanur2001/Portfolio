@@ -180,7 +180,7 @@ const PaymentForm = () => {
             </Helmet>
             <ToastContainer />
             <NavBar />
-            <Container style={{ marginTop: '6rem' }}>
+            <Container className="payment-container">
                 <Row className="justify-content-center">
                     <Col md={8} lg={6}>
                         <div className="form-container">
