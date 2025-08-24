@@ -5,6 +5,7 @@ import { load } from '@cashfreepayments/cashfree-js'
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import { Helmet } from "react-helmet";
+import { NavBar } from '../components/NavBar'
 
 const PaymentForm = () => {
     const BackendUrl = process.env.REACT_APP_BACKEND_URL
@@ -178,7 +179,8 @@ const PaymentForm = () => {
                 <meta name="twitter:image" content="https://mizanur.in/logo_me.png" />
             </Helmet>
             <ToastContainer />
-            <Container>
+            <NavBar />
+            <Container style={{ marginTop: '6rem' }}>
                 <Row className="justify-content-center">
                     <Col md={8} lg={6}>
                         <div className="form-container">

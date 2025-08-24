@@ -1015,3 +1015,9 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
 .payment-form .btn-primary:hover {
   background-color: #0056b3;
 }
+
+/* Toastify Notifications */
+
+.Toastify__toast-container {
+  z-index: 99999;
+}
