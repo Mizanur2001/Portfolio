@@ -53,19 +53,19 @@ export const Skills = () => {
               <p>With their proficiency in server optimization, front-end and back-end development, I am a versatile skill set that consistently delivers high-quality and efficient web applications.</p>
               <Carousel responsive={responsive} infinite={true} className="owl-carousel owl-theme skill-slider">
                 <div className="item">
-                  <img src={meter1} alt="Image" />
+                  <img src={meter1} alt="Frontend Development" />
                   <h5>Frontend Development</h5>
                 </div>
                 <div className="item">
-                  <img src={meter2} alt="Image" />
+                  <img src={meter2} alt="Brand Identity" />
                   <h5>Brand Identity</h5>
                 </div>
                 <div className="item">
-                  <img src={meter3} alt="Image" />
+                  <img src={meter3} alt="Server Management" />
                   <h5>Server Management</h5>
                 </div>
                 <div className="item">
-                  <img src={meter1} alt="Image" />
+                  <img src={meter1} alt="Backend Development" />
                   <h5>Backend Development</h5>
                 </div>
               </Carousel>
@@ -73,7 +73,7 @@ export const Skills = () => {
           </div>
         </div>
       </div>
-      <img className="background-image-left" src={colorSharp} alt="Image" />
+      <img className="background-image-left" src={colorSharp} alt="Background" />
     </section>
   )
 }
