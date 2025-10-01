@@ -24,8 +24,16 @@ export const Footer = () => {
             <p>Copyright © 2023. All Rights Reserved</p>
             <p>Made in India with ❤️</p>
             <div className="privacy-policy">
-              <Link to='/privacy'>Terms and Conditions</Link>
+              <Link to='/terms'>Terms and Conditions</Link>
               <Link to='/pay'>Payment</Link>
+            </div>
+            <div className="privacy-policy mt-2">
+              <Link to='/refund'>Cancellation & Refunds</Link>
+              <Link to='/shipping'>Shipping</Link>
+            </div>
+            <div className="privacy-policy mt-2">
+              <Link to='/pricing'>Softwares Pricing & Plans</Link>
+              <Link to='/privacy'>Privacy</Link>
             </div>
           </Col>
         </Row>
