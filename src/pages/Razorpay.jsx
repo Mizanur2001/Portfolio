@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Card, Form, Button, Badge } from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button, Badge, Spinner } from "react-bootstrap";
 import { NavBar } from "../components/NavBar";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
@@ -16,6 +16,7 @@ const RazorpayCheckout = () => {
         amount: 500,
         message: "",
     });
+    const [loader, setLoader] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -26,62 +27,82 @@ const RazorpayCheckout = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoader(true);
 
-        const response = await axios.post(BACKEND_BASE_URL + "/api/v1/tools/payment/razorpay/initiate", { amountInPaise: formData?.amount * 100 })
-        if (response?.data?.code === 202) {
-            return toast.error(response?.data?.error)
+        try {
+            const response = await axios.post(
+                BACKEND_BASE_URL + "/api/v1/tools/payment/razorpay/initiate",
+                { amountInPaise: formData?.amount * 100 }
+            );
+
+            if (response?.data?.code === 202) {
+                toast.error(response?.data?.error);
+                return;
+            }
+
+            var options = {
+                key: process.env.REACT_APP_RAZORPAY_KEY,
+                amount: formData?.amount * 100,
+                currency: "INR",
+                name: "Mizanur Payments",
+                description: formData?.message || "Invoice Payment",
+                image: "https://mizanur.in/static/media/logo_me.a69395c0d314b1e15781.png",
+                order_id: response.data.data.order.id,
+                handler: async function (response) {
+                    try {
+                        const body = {
+                            ...response,
+                        };
+
+                        const validateRes = await axios.post(
+                            BACKEND_BASE_URL + "/api/v1/tools/payment/razorpay/validate",
+                            body
+                        );
+
+                        const jsonRes = validateRes.data;
+
+                        if (jsonRes.status === "success") {
+                            toast.success("Payment Successful Thank You " + formData?.name + "!");
+                            setFormData({
+                                name: "",
+                                email: "",
+                                phone: "",
+                                amount: "",
+                                message: "",
+                            });
+                            setTimeout(() => {
+                                navigate("/");
+                            }, 4000);
+                        }
+                    } catch (error) {
+                        toast.error("Unable to verify payment. Please contact support.");
+                    }
+                },
+                prefill: {
+                    name: formData?.name,
+                    email: formData?.email,
+                    contact: formData?.phone,
+                },
+                notes: {
+                    address: "Mizanur Office for now :)",
+                },
+                theme: {
+                    color: "#3399cc",
+                },
+            };
+
+            var rzp1 = new window.Razorpay(options);
+
+            rzp1.on("payment.failed", function () {
+                toast.error("Payment failed, please try again :(")
+            });
+
+            rzp1.open();
+        } catch (error) {
+            toast.error(error?.response?.data?.error || "Unable to initiate payment. Please try again.");
+        } finally {
+            setLoader(false);
         }
-
-        var options = {
-            key: process.env.REACT_APP_RAZORPAY_KEY,
-            amount: formData?.amount * 100,
-            currency: "INR",
-            name: "Mizanur Payments",
-            description: formData?.message || "Invoice Payment",
-            image: "https://mizanur.in/static/media/logo_me.a69395c0d314b1e15781.png",
-            order_id: response.data.data.order.id,
-            handler: async function (response) {
-                const body = {
-                    ...response,
-                };
-
-                const validateRes = await axios.post(BACKEND_BASE_URL + '/api/v1/tools/payment/razorpay/validate', body);
-
-                const jsonRes = validateRes.data;
-
-                if (jsonRes.status === 'success') {
-                    toast.success("Payment Successful Thank You " + formData?.name + "!")
-                    setFormData({
-                        name: "",
-                        email: "",
-                        phone: "",
-                        amount: '',
-                        message: "",
-                    })
-                    setTimeout(() => {
-                        navigate('/');
-                    }, 4000);
-                }
-            },
-            prefill: {
-                name: formData?.name,
-                email: formData?.email,
-                contact: formData?.phone,
-            },
-            notes: {
-                address: "Mizanur Office for now :)",
-            },
-            theme: {
-                color: "#3399cc",
-            },
-        };
-
-        var rzp1 = new window.Razorpay(options);
-
-        rzp1.on("payment.failed", function (response) {
-            toast.error("Payment failed, please try again :(")
-        });
-        rzp1.open();
     };
 
     const formatINR = (value) =>
@@ -98,7 +119,7 @@ const RazorpayCheckout = () => {
 
     return (
         <>
-             <Helmet>
+            <Helmet>
                 <title>Payment - Razorpay | Mizanur Rahaman Portfolio</title>
                 <link rel="canonical" href="https://mizanur.in/pay" />
                 <meta name="description" content="Make secure payments on Mizanur Rahaman's portfolio website. Fast, easy, and protected payment process for your convenience." />
@@ -279,8 +300,23 @@ const RazorpayCheckout = () => {
                                                         size="lg"
                                                         className="w-100 py-3 fw-semibold text-uppercase letter-spacing-1"
                                                         variant="info"
+                                                        disabled={loader}
                                                     >
-                                                        Proceed to Razorpay Checkout
+                                                        {loader ? (
+                                                            <>
+                                                                <Spinner
+                                                                    as="span"
+                                                                    animation="border"
+                                                                    size="sm"
+                                                                    role="status"
+                                                                    aria-hidden="true"
+                                                                    className="me-2"
+                                                                />
+                                                                Processing……
+                                                            </>
+                                                        ) : (
+                                                            "Proceed to Razorpay Checkout"
+                                                        )}
                                                     </Button>
                                                     <p className="mt-3 text-center small text-secondary">
                                                         You&apos;ll be redirected to Razorpay to finalize this secure payment.
