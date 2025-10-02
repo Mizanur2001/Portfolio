@@ -10,6 +10,7 @@ import Resume from './pages/Resume';
 import Refund from './pages/Refund';
 import Shipping from './pages/Shipping';
 import Privacy from './pages/Privacy';
+import RazorpayCheckout from './pages/Razorpay';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path='/terms' element={<Terms />} />
           <Route path='/pricing' element={<Pricing />} />
           <Route path='/pay' element={<Payment />} />
+          <Route path='/razorpay/pay' element={<RazorpayCheckout/>} />
           <Route path='/cv' element={<Resume />} />
           <Route path='/refund' element={<Refund />} />
           <Route path='/shipping' element={<Shipping />} />
