@@ -3,6 +3,7 @@ import { Container, Row, Col, Card, Form, Button, Badge } from "react-bootstrap"
 import { NavBar } from "../components/NavBar";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
+import { Helmet } from "react-helmet";
 const { useNavigate } = require('react-router-dom');
 
 const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_URL
@@ -97,6 +98,22 @@ const RazorpayCheckout = () => {
 
     return (
         <>
+             <Helmet>
+                <title>Payment - Razorpay | Mizanur Rahaman Portfolio</title>
+                <link rel="canonical" href="https://mizanur.in/pay" />
+                <meta name="description" content="Make secure payments on Mizanur Rahaman's portfolio website. Fast, easy, and protected payment process for your convenience." />
+                <meta name="keywords" content="Payment, Mizanur Rahaman, Secure Payment, Portfolio, Online Payment, Payment Form" />
+                <meta property="og:title" content="Payment - Razorpay | Mizanur Rahaman Portfolio" />
+                <meta property="og:description" content="Make secure payments on Mizanur Rahaman's portfolio website. Fast, easy, and protected payment process for your convenience." />
+                <meta property="og:image" content="https://mizanur.in/logo_me.png" />
+                <meta property="og:url" content="https://mizanur.in/payment" />
+                <meta property="og:type" content="website" />
+                <meta property="og:site_name" content="Mizanur's Portfolio" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Payment - Razorpay | Mizanur Rahaman Portfolio" />
+                <meta name="twitter:description" content="Make secure payments on Mizanur Rahaman's portfolio website. Fast, easy, and protected payment process for your convenience." />
+                <meta name="twitter:image" content="https://mizanur.in/logo_me.png" />
+            </Helmet>
             <NavBar />
             <ToastContainer />
             <section
