@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Card, Form, Button, Badge } from "react-bootstrap";
 import { NavBar } from "../components/NavBar";
+import axios from "axios";
+import { ToastContainer, toast } from 'react-toastify';
+const { useNavigate } = require('react-router-dom');
 
+const BACKEND_BASE_URL = process.env.REACT_APP_BACKEND_URL
 const RazorpayCheckout = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -18,20 +23,64 @@ const RazorpayCheckout = () => {
         }));
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const checkoutPayload = {
-            ...formData,
-            amount: invoiceAmount,
-            gatewayCharge,
-            tax,
-            totalDue,
-            amountInPaise: Math.round(totalDue * 100),
+        const response = await axios.post(BACKEND_BASE_URL + "/api/v1/tools/payment/razorpay/initiate", { amountInPaise: formData?.amount * 100 })
+        if (response?.data?.code === 202) {
+            return toast.error(response?.data?.error)
+        }
+
+        var options = {
+            key: process.env.REACT_APP_RAZORPAY_KEY,
+            amount: formData?.amount * 100,
+            currency: "INR",
+            name: "Mizanur Payments",
+            description: formData?.message || "Invoice Payment",
+            image: "https://mizanur.in/static/media/logo_me.a69395c0d314b1e15781.png",
+            order_id: response.data.data.order.id,
+            handler: async function (response) {
+                const body = {
+                    ...response,
+                };
+
+                const validateRes = await axios.post(BACKEND_BASE_URL + '/api/v1/tools/payment/razorpay/validate', body);
+
+                const jsonRes = validateRes.data;
+
+                if (jsonRes.status === 'success') {
+                    toast.success("Payment Successful Thank You " + formData?.name + "!")
+                    setFormData({
+                        name: "",
+                        email: "",
+                        phone: "",
+                        amount: '',
+                        message: "",
+                    })
+                    setTimeout(() => {
+                        navigate('/');
+                    }, 4000);
+                }
+            },
+            prefill: {
+                name: formData?.name,
+                email: formData?.email,
+                contact: formData?.phone,
+            },
+            notes: {
+                address: "Mizanur Office for now :)",
+            },
+            theme: {
+                color: "#3399cc",
+            },
         };
 
-        console.log("Checkout payload:", checkoutPayload);
-        // TODO: hook into Razorpay handler
+        var rzp1 = new window.Razorpay(options);
+
+        rzp1.on("payment.failed", function (response) {
+            toast.error("Payment failed, please try again :(")
+        });
+        rzp1.open();
     };
 
     const formatINR = (value) =>
@@ -49,6 +98,7 @@ const RazorpayCheckout = () => {
     return (
         <>
             <NavBar />
+            <ToastContainer />
             <section
                 className="py-5 text-white"
                 style={{
@@ -93,7 +143,7 @@ const RazorpayCheckout = () => {
 
                                                     <div className="d-flex justify-content-between align-items-center border-top border-white-25 pt-3">
                                                         <span className="text-secondary text-uppercase small">
-                                                            Gateway charge (2%)
+                                                            Gateway charge (2%) - UPI
                                                         </span>
                                                         <span className="fs-5 fw-semibold text-info">
                                                             {formatINR(gatewayCharge)}
