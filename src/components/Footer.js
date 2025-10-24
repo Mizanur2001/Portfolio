@@ -37,7 +37,7 @@ export const Footer = () => {
             </div>
             <div className="privacy-policy mt-2">
               <Link to='/razorpay/pay'>Razorpay Payment Service</Link>
-              <Link to='/pricing'>Priceing</Link>
+              <Link to='/pricing'>Pricing</Link>
             </div>
           </Col>
         </Row>
